@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Encryption{% endblock title %}
+{% block body %}
+    <!-- Navbar -->
+
+    <!-- Text Form for encryption-->
+    <h1>Encryption</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="algorithm">Select Algorithm:</label>
+            <select class="form-control" name="algorithm">
+              <option value="fernet">Fernet</option>
+              <option value="aes">AES</option>
+              <option value="des">Triple DES</option>
+              <option value="blowfish">Blowfish</option>
+              <option value="rsa">RSA</option>
+              <option value="caesar">Caesar Cipher</option>
+              <option value="twofish">Twofish</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="plain_text">Enter the text:</label>
+            <input type="text" class="form-control" name="plain_text" placeholder="Enter the text." required>
+        </div>
+        <!--<div class="form-group">
+            <label for="key">Enter the key:</label>
+            <input class="form-control" name="key" placeholder="Enter the key." required>
+        </div>-->
+        <input type="submit" value="Encrypt">&nbsp;&nbsp;&nbsp;
+    </form>
+
+    <br>
+    <br>
+    {% if encrypted_text %}
+
+    <div class="form-group">
+            <label>Encrypted Text for {{ algorithm }} is:</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon3">{{ encrypted_text }}</span>
+                </div>
+
+            </div>
+            <label>Encrypted Key for {{ algorithm }} is: </label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon4">{{ key }}</span>
+                </div>
+            </div>
+    </div>
+
+
+    {% endif %}
+
+{% endblock body %}

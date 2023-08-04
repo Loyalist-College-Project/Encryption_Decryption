@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Decryption{% endblock title %}
+{% block body %}
+    <!-- Text Form for Decryption-->
+    <h1>Decryption</h1>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="algorithm">Select Algorithm:</label>
+            <select class="form-control" name="algorithm">
+              <option value="fernet">Fernet</option>
+              <option value="aes">AES</option>
+              <option value="des">Triple DES</option>
+              <option value="blowfish">Blowfish</option>
+              <option value="rsa">RSA</option>
+              <option value="caesar">Caesar Cipher</option>
+              <option value="twofish">Twofish</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="cipher_text">Enter the text:</label>
+            <input type="text" class="form-control" name="cipher_text" placeholder="Enter the text." required>
+        </div>
+        <div class="form-group">
+            <label for="key">Enter the key:</label>
+            <input type="text" class="form-control" name="key" placeholder="Enter the key." required>
+        </div>
+        <input type="submit" value="Decrypt">&nbsp;&nbsp;&nbsp;
+    </form>
+    <br>
+    <br>
+
+    {% if decrypted_text %}
+    <div class="form-group">
+            <label>Decrypted text for {{ algorithm }} is: </label>
+            <input type="text" class="form-control" placeholder="{{ decrypted_text }}" disabled>
+    </div>
+    {% endif %}
+
+{% endblock body %}
