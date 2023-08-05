@@ -113,6 +113,7 @@ def decrypt(request):
 
         # caesar cipher text - Harsh
         if algorithm == 'caesar':
+            print("Caesar Cipher")
             """"
             return render(request, 'decryption.html', {
                 'decrypted_text': str(decrypt_text),
