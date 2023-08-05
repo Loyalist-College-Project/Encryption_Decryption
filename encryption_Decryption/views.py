@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 from cryptography.fernet import Fernet
-from django.shortcuts import render, HttpResponse
+from cryptography.hazmat.primitives.ciphers.algorithms import Blowfish
+from django.shortcuts import render
 from encryption_Decryption.models import EncryptedText, DecryptedText
-
-import binascii
+from django.shortcuts import render
+import os
 
 # Create your views here.
 
@@ -11,11 +12,12 @@ def encrypt(request):
     if request.method == 'POST':
         plain_text = str(request.POST.get('plain_text'))
         algorithm = str(request.POST.get('algorithm'))
-        key = str(Fernet.generate_key().decode())
 
         # Implementing encryption based on algorithm
-        # For Fernet
-        if algorithm == 'fernet':
+
+        # AES Algorithm - Krish
+        if algorithm == 'aes':
+            key = str(Fernet.generate_key().decode())
             cipher_suite = Fernet(key)
             encrypted_text = cipher_suite.encrypt(plain_text.encode()).decode()
 
@@ -26,45 +28,44 @@ def encrypt(request):
                 algorithm=algorithm,
                 key=key
             )
-            print("Fernet runned successfully")
 
             return render(request, 'encryption.html', {
                 'encrypted_text': str(encrypted_text),
                 'algorithm': algorithm,
-                'key':str(key)
+                'key': str(key)
             })
 
-        # AES Algorithm
-        if algorithm == 'aes':
-            print("AES Algorithm")
-
-        # Triple DES
+        # Triple DES - Bhumi, Vidhi and dheeraj
         if algorithm == 'des':
-            print("Triple DES Algorithm")
-
-        # Blowfish
-        if algorithm == 'blowfish':
             print("Blowfish Algorithm")
 
-        # RSA
-        if algorithm == 'rsa':
-
-            """return render(request, 'encryption.html',{
-                'encrypted_text': str(encrypted_message),
+        # Blowfish -
+        if algorithm == 'blowfish':
+            """"
+            return render(request, 'encryption.html', {
+                'encrypted_text': str(encrypted_text),
                 'algorithm': algorithm,
                 'key': str(key)
             })"""
 
-        # caesar cipher text
+
+        # RSA -
+        if algorithm == 'rsa':
+            """"
+            return render(request, 'encryption.html', {
+                'encrypted_text': str(encrypted_text),
+                'algorithm': algorithm,
+                'key': str(shift)
+            })"""
+
+        # caesar cipher text - Harsh
         if algorithm == 'caesar':
-            print("Caesar Cipher Algorithm")
-
-        # TwoFish
-        if algorithm == 'twofish':
-            print("Twofish Algorithm")
-
-        elif algorithm == 'cipher':
-            print("This is cipher")
+            """"
+            return render(request, 'encryption.html', {
+                'encrypted_text': str(encrypted_text),
+                'algorithm': algorithm,
+                'key': str(shift)
+            })"""
 
     return render(request, 'encryption.html')
 
@@ -77,11 +78,11 @@ def decrypt(request):
         key = str(request.POST.get('key'))
 
         # Implementing decryption based on algorithm
-        # Fernet Algorithm
-        if algorithm == 'fernet':
+        # AES Algorithm - Krish
+        if algorithm == 'aes':
             cipher_suite = Fernet(key)
             decrypt_text = cipher_suite.decrypt(decrypted_text.encode()).decode()
-            key=str(key)
+            key = str(key)
 
             DecryptedText.objects.create(
                 decrypted_text=decrypted_text,
@@ -89,39 +90,34 @@ def decrypt(request):
                 algorithm=algorithm,
             )
 
-            
-
             return render(request, 'decryption.html', {
                 'decrypted_text': str(decrypt_text),
                 'algorithm': algorithm
             })
 
-        # AES Algorithm
-        if algorithm == 'aes':
-            print("AES Algorithm")
-
-        # Triple DES
+        # Triple DES - Bhumi, Vidhi and dheeraj
         if algorithm == 'des':
             print("Triple DES Algorithm")
 
-        # Blowfish
+        # Blowfish -
         if algorithm == 'blowfish':
             print("Blowfish Algorithm")
 
-        # RSA
+        # RSA -
         if algorithm == 'rsa':
-            """return render(request, 'decryption.html', {
+            """"
+            return render(request, 'decryption.html', {
                 'decrypted_text': str(decrypt_text),
                 'algorithm': algorithm
             })"""
 
-        # caesar cipher text
+        # caesar cipher text - Harsh
         if algorithm == 'caesar':
-            print("Caesar Cipher Algorithm")
+            """"
+            return render(request, 'decryption.html', {
+                'decrypted_text': str(decrypt_text),
+                'algorithm': algorithm
+            })"""
 
-
-        # TwoFish
-        if algorithm == 'twofish':
-            print("Twofish Algorithm")
 
     return render(request, 'decryption.html')
