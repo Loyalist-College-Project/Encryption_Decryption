@@ -60,13 +60,23 @@ def encrypt(request):
 
         # caesar cipher text - Harsh
         if algorithm == 'caesar':
-            """"
+            shift = 3
+            encrypted_text = ""
+            for char in plain_text:
+                if char.isalpha():
+                    base = ord('A') \
+                    if char.isupper() \
+                    else ord('a')
+                    shifted_char = chr((ord(char) - base + shift) % 26 + base)
+                    encrypted_text += shifted_char
+                else:
+                    encrypted_text += char
             return render(request, 'encryption.html', {
                 'encrypted_text': str(encrypted_text),
                 'algorithm': algorithm,
                 'key': str(shift)
-            })"""
-
+            })
+        
     return render(request, 'encryption.html')
 
 
@@ -113,12 +123,22 @@ def decrypt(request):
 
         # caesar cipher text - Harsh
         if algorithm == 'caesar':
-            print("Caesar Cipher")
-            """"
+            shift = -3
+            decrypt_text = ""
+            for char in decrypted_text:
+                if char.isalpha():
+                    base = ord('A') \
+                        if char.isupper() \
+                        else ord('a')
+                    shifted_char = chr((ord(char) - base + shift) % 26 + base)
+                    decrypt_text += shifted_char
+                else:
+                    decrypt_text += char
+            
             return render(request, 'decryption.html', {
-                'decrypted_text': str(decrypt_text),
-                'algorithm': algorithm
-            })"""
+                            'decrypted_text': str(decrypt_text),
+                            'algorithm': algorithm
+                        })
 
 
     return render(request, 'decryption.html')
