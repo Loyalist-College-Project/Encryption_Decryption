@@ -8,18 +8,17 @@
     <h1>Encryption</h1>
     <form method="post">
         {% csrf_token %}
+        <!-- Select an algorithm -->
         <div class="form-group">
             <label for="algorithm">Select Algorithm:</label>
             <select class="form-control" name="algorithm">
-              <option value="fernet">Fernet</option>
               <option value="aes">AES</option>
-              <option value="des">Triple DES</option>
               <option value="blowfish">Blowfish</option>
               <option value="rsa">RSA</option>
               <option value="caesar">Caesar Cipher</option>
-              <option value="twofish">Twofish</option>
             </select>
         </div>
+        <!--- Enter the text -->
         <div class="form-group">
             <label for="plain_text">Enter the text:</label>
             <input type="text" class="form-control" name="plain_text" placeholder="Enter the text." required>
@@ -29,17 +28,18 @@
 
     <br>
     <br>
+
+<!--- Output will be passed here. -->
     {% if encrypted_text %}
 
     <div class="form-group">
             <label>Encrypted Text for {{ algorithm }} is:</label>
             <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="{{ encrypted_text }}" disabled>
-                <button onclick="copyText()">Copy</button>
+                <input type="text" class="form-control" value="{{ encrypted_text }}" disabled>
             </div>
             <label>Encrypted Key for {{ algorithm }} is: </label>
             <div class="input-group-prepend">
-                <input type="text" class="form-control" placeholder="{{ key }}" disabled>
+                <input type="text" class="form-control" value="{{ key }}" disabled>
             </div>
     </div>
 
