@@ -41,12 +41,22 @@ def encrypt(request):
 
         # Blowfish -
         if algorithm == 'blowfish':
-            """"
+            key = token_bytes(16)
+            cipher = blowfish.Cipher(key)
+            length = len(plain_text)
+            if length == 8:
+                plain_text = bytes(plain_text, 'utf-8')
+                encrypted_text = cipher.encrypt_block(plain_text)
+                return render(request, 'encryption.html', {
+                    'encrypted_text': str(encrypted_text),
+                    'algorithm': algorithm,
+                    'key': str(key)
+                })
+            else:
+                error = "Please enter 8 character alphabets Eg. Python 3."
             return render(request, 'encryption.html', {
-                'encrypted_text': str(encrypted_text),
-                'algorithm': algorithm,
-                'key': str(key)
-            })"""
+                'error': str(error)
+            })
 
 
         # RSA -
