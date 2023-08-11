@@ -35,9 +35,9 @@ def encrypt(request):
                 'key': str(key)
             })
 
-        # Triple DES - Bhumi, Vidhi and dheeraj
-        if algorithm == 'des':
-            print("Blowfish Algorithm")
+        # Twofish - Bhumi, Vidhi and dheeraj
+        if algorithm == 'twofish':
+            print("Twofish Algorithm")
 
         # Blowfish -
         if algorithm == 'blowfish':
@@ -115,9 +115,9 @@ def decrypt(request):
                 'algorithm': algorithm
             })
 
-        # Triple DES - Bhumi, Vidhi and dheeraj
-        if algorithm == 'des':
-            print("Triple DES Algorithm")
+        # Twofish - Bhumi, Vidhi and dheeraj
+        if algorithm == 'twofish':
+            print("Twofish Algorithm")
 
         # Blowfish -
         if algorithm == 'blowfish':
